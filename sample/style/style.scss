@@ -1,0 +1,13 @@
+.test{
+  width: 100px;
+  height: 100px;
+  background: url("../assets/a.png");
+}
+
+.test2{
+  width: 100px;
+  height: 100px;
+  background: url("../assets/a.png?minfiy=true&inline");
+}
+
+@import "_partial/inc";

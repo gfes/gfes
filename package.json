@@ -1,0 +1,49 @@
+{
+  "name": "gfes",
+  "version": "0.1.0",
+  "description": "",
+  "main": "./index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "sample": "cd sample \n gulp"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "babel-preset-es2015": "^6.0.15",
+    "babel-preset-react": "^6.0.15",
+    "babel-preset-stage-1": "^6.0.15",
+    "babelify": "^7.2.0",
+    "browserify": "^12.0.1",
+    "browserify-shim": "git://github.com/tommyZZM/browserify-shim.git#configable-inscript",
+    "coffeeify": "^1.1.0",
+    "del": "^2.0.2",
+    "exposify": "~0.4.3",
+    "gulp": "latest",
+    "gulp-sass": "^2.1.0",
+    "gulp-util": "^3.0.6",
+    "merge-stream": "^1.0.0",
+    "require-dir": "^0.3.0",
+    "tsify": "latest",
+    "typescript": "^1.8.0-dev.20151108",
+    "vinyl-buffer": "^1.0.0",
+    "vinyl-paths": "^2.0.0",
+    "vinyl-source-stream": "^1.1.0",
+    "watchify": "^3.6.0"
+  },
+  "dependencies": {
+    "babel": "^6.3.26",
+    "babel-core": "^6.3.26",
+    "bluebird": "^3.1.1",
+    "character-parser": "^2.1.1",
+    "deep-extend": "^0.4.0",
+    "gulp-filter": "^3.0.1",
+    "gulp-less": "^3.0.5",
+    "is-absolute-url": "^2.0.0",
+    "multimatch": "^2.1.0",
+    "replacestream": "^4.0.0",
+    "slash": "^1.0.0",
+    "through2": "^2.0.0",
+    "webworker-threads": "^0.6.2"
+  }
+}
