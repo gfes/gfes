@@ -4,20 +4,12 @@
 var gulp = require("gulp");
 var gfes = require("../index.js");
 
-gfes.scriptTask("hello","./src/Main.js")
-    .beowserify({
-        transforms:[
-            [gfes.metaify()]
-        ]
+gulp.task("default",function(){
+    return gfes.browserify(["./src1/Main.js","./src2/Main.js"],{
+        output:{
+            "src1":"srchello1",
+            "src2":"srchello2"
+        }
     })
-    .pipeline(gulp.dest("./dist/js"))
-    .pipeline(gfes.resolve());
-
-gfes.styleTask("hello","./style/style.scss")
-    .pipeline(gulp.dest("./dist/css"))
-    .pipeline(gfes.resolve());
-
-gfes.combineTasks("hello",["css@hello","js@hello"]);
-
-gulp.task("default",["js@hello"]);
+})
 

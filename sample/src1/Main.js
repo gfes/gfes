@@ -6,8 +6,8 @@ var aversion = __meta$(require("../../package.json").version);
 var alocate = __meta$(locate("../assets/a.png"));
 
 var ainline = __meta$(()=>{
-    console.log(multimatch)
+    console.log(multimatch,"js")
     return inline("../assets/a.png")
 });
 
-var com = require("./Com");
+var com1 = require("./Com");

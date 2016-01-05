@@ -51,7 +51,37 @@ gfes.combineAsGroup("solA",[jst,csst,htmlt])
 
 ```
 
-Precompiled
+```
+
+gfes.relation({...});
+
+gfes.loadplugin()
+
+gfes.task(function(){
+    return gfes.browserify(({
+           transforms:[
+               [gfes.metaifyJS()]
+           ]
+        })
+        .pipe(...)
+        .pipe(gfes.dest("./dist/js")) //resolve url location
+})
+
+gfes.task(function(){
+    return gfes.style(...,{...})
+        .pipe(gfes.dest("./dist/css"))
+})
+
+gfes.task(function(){
+    return gfes.html(...)
+        .pipe(gfes.dest("./dist/"))
+})
+
+gfes.combine("com",["js","css","html"],function(bundle){ //setbase
+    bundle.pipe(gfes.write()) //update gfes.relation-ship.json
+})
+
+```
 
 
 ### API
