@@ -6,10 +6,7 @@ var gfes = require("../index.js");
 
 gulp.task("default",function(){
     return gfes.browserify(["./src1/Main.js","./src2/Main.js"],{
-        output:{
-            "src1":"srchello1",
-            "src2":"srchello2"
-        }
-    })
+        output:["app.js","app2.js"]
+    }).pipe(gulp.dest("./dist"))
 })
 
