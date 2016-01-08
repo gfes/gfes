@@ -4,9 +4,13 @@
 var gulp = require("gulp");
 var gfes = require("../index.js");
 
-gulp.task("default",function(){
-    return gfes.browserify(["./src1/Main.js","./src2/Main.js"],{
-        output:["app.js","app2.js"]
-    }).pipe(gulp.dest("./dist"))
-})
+gulp.task("js",()=>
+    gfes.browserify("./src/Main.js",{})
+        .bundle("app.js")
+        .pipe(gulp.dest("./dist"))
+)
 
+gulp.task("style",()=>
+    gfes.style("./style/style.scss")
+        .pipe(gulp.dest("./dist"))
+)

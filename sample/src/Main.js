@@ -10,4 +10,4 @@ var ainline = __meta$(()=>{
     return inline("../assets/a.png")
 });
 
-var com1 = require("./../com/Com");
+//var style = require("../style/style.scss")

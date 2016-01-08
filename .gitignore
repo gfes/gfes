@@ -43,7 +43,10 @@ Temporary Items
 .apdisk
 
 # Files that might appear on external disk
+/test/dist
+/bk
 node_modules
 dist/
 bin/
 *.*~
+.idea/
