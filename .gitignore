@@ -44,7 +44,7 @@ Temporary Items
 
 # Files that might appear on external disk
 /test/dist
-/bk
+bk/
 node_modules
 dist/
 bin/

@@ -1,13 +1,8 @@
 /* Created by tommyZZM on 2015/12/21. */
 "use strict";
 
-var aversion = __meta$(require("../../package.json").version);
+/*#{*/
+var packagejson = require("../../package.json")
+/*#}*/
 
-var alocate = __meta$(locate("../assets/a.png"));
-
-var ainline = __meta$(()=>{
-    console.log(multimatch,"js")
-    return inline("../assets/a.png")
-});
-
-//var style = require("../style/style.scss")
+/*#{*/__export(packagejson.version)/*#}*/

@@ -6,11 +6,12 @@ var gfes = require("../index.js");
 
 gulp.task("js",()=>
     gfes.browserify("./src/Main.js",{})
+        .transform(require("../lib/wrap/metaify.js"))
         .bundle("app.js")
         .pipe(gulp.dest("./dist"))
 )
 
 gulp.task("style",()=>
-    gfes.style("./style/style.scss")
+    gfes.sass("./style/style.scss")
         .pipe(gulp.dest("./dist"))
 )
