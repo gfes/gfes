@@ -5,8 +5,15 @@ var gulp = require("gulp");
 var gfes = require("../index.js");
 
 gulp.task("js",()=>
-    gfes.browserify("./src/Main.js",{})
-        .transform(require("../lib/wrap/metaify.js"))
+    gfes.browserify("./src/Main.js", {
+            resolve: {
+                react:"global:React"
+                //,dep:"./src/Dep.js"
+            }
+        })
+        //.transform(require("browserify-shim"),{shim:{
+        //    react:"global:React"
+        //}})
         .bundle("app.js")
         .pipe(gulp.dest("./dist"))
 )
