@@ -3,6 +3,4 @@
 
 //todo:usual
 
-//todo:multiplyOutput
-
-//todo:extractCommon
+//todo:resolve:global

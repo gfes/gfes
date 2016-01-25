@@ -2,15 +2,21 @@
 "use strict";
 
 /*#{*/
-var packagejson = require("../../package.json")
+var packagejson = require("../../package.json?get=[version]")
 /*#}*/
 
-//var extend = require("deep-extend")
+var extend = require("xtend")
 
 var reactTap = require("react")
 
+require('test')
+
+//require("a");
+
+require('../assets/a.png?linline&minfiy')
+
 console.log(__filename)
 
-require("./Dep.js");
+var a =  require("dep");
 
 global.abc = "abc"

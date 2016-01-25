@@ -7,13 +7,15 @@ var gfes = require("../index.js");
 gulp.task("js",()=>
     gfes.browserify("./src/Main.js", {
             resolve: {
-                react:"global:React"
-                //,dep:"./src/Dep.js"
+                react:"global:React",
+                dep:"./src/Dep.js"
             }
+            , moduleDirs:["bower_components"]
         })
         //.transform(require("browserify-shim"),{shim:{
         //    react:"global:React"
         //}})
+        //.transform(require("babelify"),{presets:["es2015"]})
         .bundle("app.js")
         .pipe(gulp.dest("./dist"))
 )

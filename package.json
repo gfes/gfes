@@ -23,6 +23,7 @@
     "gulp-util": "^3.0.6",
     "merge-stream": "^1.0.0",
     "minimatch": "^3.0.0",
+    "query-string": "^3.0.0",
     "replacestream": "^4.0.0",
     "through2": "^2.0.0",
     "vinyl": "^1.1.0",
