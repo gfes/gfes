@@ -1,3 +1,3 @@
-exports.browserify = require("./lib/wrap/browserify")
-exports.sass = require("./lib/wrap/sass")
+exports.browserify = require("./lib/decorate/browserify")
+exports.sass = require("./lib/decorate/sass")
 

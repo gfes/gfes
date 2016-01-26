@@ -4,12 +4,17 @@
   "description": "",
   "main": "./index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "./node_modules/.bin/_mocha",
     "sample": "cd sample \n gulp"
   },
   "author": "",
   "license": "ISC",
-  "devDependencies": {},
+  "devDependencies": {
+    "chai": "^3.4.1",
+    "chai-string": "^1.1.6",
+    "mocha": "^2.3.4",
+    "mochawesome": "^1.2.2"
+  },
   "dependencies": {
     "browserify": "latest",
     "character-parser": "^2.1.1",
