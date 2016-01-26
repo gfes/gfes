@@ -4,8 +4,8 @@
   "description": "",
   "main": "./index.js",
   "scripts": {
-    "test": "./node_modules/.bin/_mocha",
-    "sample": "cd sample \n gulp"
+    "test": "./node_modules/.bin/_mocha"
+    ,"sample": "cd sample \n gulp"
   },
   "author": "",
   "license": "ISC",
