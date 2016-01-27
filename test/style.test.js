@@ -2,10 +2,9 @@
 "use strict"
 
 var gfes = require("../index.js");
-
 var through = require("through2")
 
-describe('style:build', function() {
+describe('gfes.style', function() {
     it('build', function(done) {
         let s = gfes.style("./test/resource/style/style.scss")
 
@@ -13,12 +12,6 @@ describe('style:build', function() {
                 //console.log(f.contents.toString())
                 next(null,f)
             }))
-            .on("finish",done)
-    });
-
-    it('urlResolve', function(done) {
-        let s = gfes.style("./test/resource/style/style.scss")
-            .pipe(gfes.styleResolve())
             .on("finish",done)
     });
 })

@@ -16,7 +16,7 @@ var assert = chai.assert
 
 //todo:usual,
 //测试包装后browserify的日常使用是否正常
-describe('browserify:usual-use', function() {
+describe('gfes.browserify', function() {
     it('browserify single bundle', function(done) {
         let b = gfes.browserify("./test/resource/js/module1.js")
         b.bundle("app.js")
@@ -30,9 +30,21 @@ describe('browserify:usual-use', function() {
     });
 });
 
+describe.only('gfes.browserify:defaultOptions', function() {
+    it('insertGlobals.__url', function(done) {
+        let b = gfes.browserify("./test/resource/js/module-inserGlobals.js")
+        b.bundle("app.js")
+            .pipe(through.obj((f,env,next)=>{
+                console.log(f.contents.toString())
+                expect(path.basename(f.path)).to.equal("app.js")
+                next(null,f)
+            }))
+            .on("finish",done)
+    });
+})
 
 //测试resolve参数
-describe('resolvify', function() {
+describe('gfes.browserify:resolvify', function() {
     //todo:resolve
     it('resolve global', function(done) {
         let b = gfes.browserify("./test/resource/js/module-require-react.js",{
@@ -66,7 +78,7 @@ describe('resolvify', function() {
 
 //todo:querify
 //测试通过require传递参数
-describe('querify', function() {
+describe.skip('gfes.browserify:querify', function() {
     it('b.while getting params', function (done) {
         let b = gfes.browserify("./test/resource/js/module-require-json.js")
         b.while("*.json", function (s, file, id, params) {

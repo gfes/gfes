@@ -5,7 +5,7 @@
   "main": "./index.js",
   "scripts": {
     "test": "./node_modules/.bin/_mocha"
-    ,"sample": "cd sample \n gulp"
+    ,"test-style": "./node_modules/.bin/_mocha"
   },
   "author": "",
   "license": "ISC",
@@ -16,6 +16,7 @@
     "mochawesome": "^1.2.2"
   },
   "dependencies": {
+    "async-replace": "^1.0.1",
     "browserify": "latest",
     "character-parser": "^2.1.1",
     "deep-extend": "^0.4.0",
@@ -29,7 +30,6 @@
     "merge-stream": "^1.0.0",
     "minimatch": "^3.0.0",
     "query-string": "^3.0.0",
-    "replacestream": "^4.0.0",
     "through2": "^2.0.0",
     "vinyl": "^1.1.0",
     "vinyl-buffer": "^1.0.0",
