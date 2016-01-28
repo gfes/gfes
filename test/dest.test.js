@@ -12,19 +12,13 @@ describe('gfes.dest', function() {
     it('build', function(done) {
         let ss = gfes.style("./test/resource/style/style.scss")
         let jss = gfes.browserify("./test/resource/js/module-inserGlobals.js").bundle("app.js")
+            //.on("data",function(f){console.log(f.contents.toString())})
 
-        let s = mergeStream([ss,jss])
+        let s = mergeStream([jss])
 
-        s.pipe(gfes.dest(null, null, function (filePath, outFolder, opts) {
-            return through(function(buf,env,next){
-                vfs.src(filePath).pipe(through.obj(function(f,env,fnext){
-                    //console.log(opts)
-                    fnext(null,f)
-                },function(){
-                    next(null,buf)
-                }))
-            })
-        }))
+        s.pipe(gfes.dest(null, null)).on("data",function(f){
+            console.log(f.contents.toString())
+        })
         .on("finish", done)
     });
 })

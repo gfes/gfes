@@ -4,8 +4,8 @@
   "description": "",
   "main": "./index.js",
   "scripts": {
-    "test": "./node_modules/.bin/_mocha"
-    ,"test-style": "./node_modules/.bin/_mocha"
+    "test": "./node_modules/.bin/_mocha",
+    "test-style": "./node_modules/.bin/_mocha"
   },
   "author": "",
   "license": "ISC",
@@ -30,6 +30,8 @@
     "merge-stream": "^1.0.0",
     "minimatch": "^3.0.0",
     "query-string": "^3.0.0",
+    "rename-function-calls": "^0.1.1",
+    "streamifier": "^0.1.1",
     "through2": "^2.0.0",
     "vinyl": "^1.1.0",
     "vinyl-buffer": "^1.0.0",

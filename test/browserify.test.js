@@ -30,12 +30,12 @@ describe('gfes.browserify', function() {
     });
 });
 
-describe.only('gfes.browserify:defaultOptions', function() {
+describe('gfes.browserify:defaultOptions', function() {
     it('insertGlobals.__url', function(done) {
         let b = gfes.browserify("./test/resource/js/module-inserGlobals.js")
         b.bundle("app.js")
             .pipe(through.obj((f,env,next)=>{
-                console.log(f.contents.toString())
+                //console.log(f.contents.toString())
                 expect(path.basename(f.path)).to.equal("app.js")
                 next(null,f)
             }))
@@ -78,14 +78,4 @@ describe('gfes.browserify:resolvify', function() {
 
 //todo:querify
 //测试通过require传递参数
-describe.skip('gfes.browserify:querify', function() {
-    it('b.while getting params', function (done) {
-        let b = gfes.browserify("./test/resource/js/module-require-json.js")
-        b.while("*.json", function (s, file, id, params) {
-                expect(params).to.have.property('param').equal("123")
-                return s;
-            })
-            .bundle("app.js")
-            .on("finish", done)
-    });
-})
+
