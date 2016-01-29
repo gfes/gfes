@@ -19,6 +19,8 @@ describe('gfes.dest', function() {
         s.on("data", f=>{})
             .pipe(gfes.dest(null, null))
             .on("finish", done)
-            .on("data", f=>{})
+            .on("data", f=>{
+                //console.log(f.contents.toString())
+            })
     });
 })
