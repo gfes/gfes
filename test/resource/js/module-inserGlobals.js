@@ -2,5 +2,8 @@
 "use strict"
 var name = "module-__url"
 
-__url("../assets/a.png?abc")
-require("../assets/a.png?");
+__url("../assets/a.png?haha")
+__url("../assets/a.png?hahaaaa")
+require("../assets/a.png?abc");
+
+require("../assets/a.png?abc123");

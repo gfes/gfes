@@ -14,11 +14,11 @@ describe('gfes.dest', function() {
         let jss = gfes.browserify("./test/resource/js/module-inserGlobals.js").bundle("app.js")
             //.on("data",function(f){console.log(f.contents.toString())})
 
-        let s = mergeStream([jss])
+        let s = mergeStream([ss,jss])
 
-        s.pipe(gfes.dest(null, null)).on("data",function(f){
-            console.log(f.contents.toString())
-        })
-        .on("finish", done)
+        s.on("data", f=>{})
+            .pipe(gfes.dest(null, null))
+            .on("finish", done)
+            .on("data", f=>{})
     });
 })
