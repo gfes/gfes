@@ -53,7 +53,7 @@ describe('gfes.browserify:resolvify', function() {
             }
         })
         b.bundle("app.js")
-            .pipe(through.obj((f,env,next)=>{expect('abcdef').to.be.singleLine();
+            .pipe(through.obj((f,env,next)=>{
                 assert.include(f.contents.toString(),"module.exports = global.React")
                 next(null,f)
             }))
@@ -77,5 +77,4 @@ describe('gfes.browserify:resolvify', function() {
 })
 
 //todo:querify
-//测试通过require传递参数
 
