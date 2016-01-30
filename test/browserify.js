@@ -63,4 +63,17 @@ describe('gfes.browserify:resolvify', function() {
 })
 
 //todo:querify
+describe.skip('gfes.browserify:querify', function() {
+    //todo:resolve
+    it('queryloader', function(done) {
+        let b = gfes.browserify("./test/resource/js/module-require-json.js")
+        b.bundle("app.js")
+            .pipe(through.obj((f,env,next)=>{expect('abcdef').to.be.singleLine();
+                assert.include(f.contents.toString(),"require('./test/resource/js/module3.js')")
+                next(null,f)
+            }))
+            .on("finish",done)
 
+        done()
+    })
+})

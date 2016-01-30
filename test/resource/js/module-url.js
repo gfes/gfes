@@ -4,6 +4,8 @@ var name = "module-url"
 
 __url("../assets/a.png?haha")
 __url("../assets/a.png?hahaaaa")
-require("../assets/a.png?abc");
+require("../assets/a.png?url&abc");
 
-require("../assets/a.png?abc123");
+require("../assets/a.png?");
+
+require("xtend?");

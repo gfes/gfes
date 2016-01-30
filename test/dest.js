@@ -14,13 +14,13 @@ describe('gfes.dest', function() {
         let jss = gfes.browserify("./test/resource/js/module-url.js").bundle("app.js")
             //.on("data",function(f){console.log(f.contents.toString())})
 
-        let s = mergeStream([ss,jss])
+        let s = mergeStream([jss])
 
         s.on("data", f=>{})
-            .pipe(gfes.dest(null, null))
+            .pipe(gfes.dest(null, {__debug:true}))
             .on("finish", done)
             .on("data", f=>{
-                //console.log(f.contents.toString())
+                //console.log("\n/** final result **/\n",f.contents.toString(),"\n/** **/\n")
             })
     });
 })
