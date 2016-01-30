@@ -30,19 +30,6 @@ describe('gfes.browserify', function() {
     });
 });
 
-describe('gfes.browserify:defaultOptions', function() {
-    it('insertGlobals.__url', function(done) {
-        let b = gfes.browserify("./test/resource/js/module-inserGlobals.js")
-        b.bundle("app.js")
-            .pipe(through.obj((f,env,next)=>{
-                //console.log(f.contents.toString())
-                expect(path.basename(f.path)).to.equal("app.js")
-                next(null,f)
-            }))
-            .on("finish",done)
-    });
-})
-
 //测试resolve参数
 describe('gfes.browserify:resolvify', function() {
     //todo:resolve
