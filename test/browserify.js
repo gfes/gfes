@@ -1,10 +1,7 @@
 /* Created by tommyZZM on 2016/1/7. */
 "use strict"
 var path = require("path")
-
-var gulp = require("gulp");
 var gfes = require("../index.js");
-
 var through = require("through2")
 
 var chai = require('chai');
@@ -17,6 +14,8 @@ var assert = chai.assert
 //todo:usual,
 //测试包装后browserify的日常使用是否正常
 describe('gfes.browserify', function() {
+    this.slow(100);
+
     it('browserify single bundle', function(done) {
         let b = gfes.browserify("./test/resource/js/module1.js")
         b.bundle("app.js")

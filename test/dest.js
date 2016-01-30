@@ -11,7 +11,7 @@ describe('gfes.dest', function() {
         this.slow(300);
 
         let ss = gfes.style("./test/resource/style/style.scss")
-        let jss = gfes.browserify("./test/resource/js/module-inserGlobals.js").bundle("app.js")
+        let jss = gfes.browserify("./test/resource/js/module-url.js").bundle("app.js")
             //.on("data",function(f){console.log(f.contents.toString())})
 
         let s = mergeStream([ss,jss])
