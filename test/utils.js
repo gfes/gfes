@@ -4,7 +4,7 @@ var chai = require("chai");
 chai.use(require('chai-string'));
 var expect = chai.expect;
 
-var replaceArguments = require("../lib/utils/replace-function-arguments")
+var replaceArguments = require("../lib/utils/replace-function")
 
 describe('utils', function() {
     it("replace-function-arguments",function(done){
@@ -14,12 +14,16 @@ describe('utils', function() {
             , 'function print(s) { console.log(s); }'
             , 'print(\'hello\');'
             , 'log(\'world\');'
-        ].join('\n')
+        ].join('\n');
 
-        replaceArguments("log",code,function(args,defaultValue,callback){
-            callback(null,"\"hahaha\"")
+        replaceArguments(["log","print"],code,function(callee,args,callback){
+            //console.log(callee.name);
+            callback(null,callee("\"hahaha\""))
         }).then(function(result){
-            expect(result).to.include("log(\"hahaha\")")
+            //console.log("\nresult....\n",result)
+            expect(result).to
+                .include("log(\"hahaha\")")
+                .include("print(\"hahaha\")")
             done();
         })
     })

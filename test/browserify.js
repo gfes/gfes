@@ -54,8 +54,8 @@ describe('gfes.browserify:resolvify', function() {
             }
         })
         b.bundle("app.js")
-            .pipe(through.obj((f,env,next)=>{expect('abcdef').to.be.singleLine();
-                assert.include(f.contents.toString(),"require('./test/resource/js/module3.js')")
+            .pipe(through.obj((f,env,next)=>{
+                assert.include(f.contents.toString(),"require(\"./test/resource/js/module3.js\")")
                 next(null,f)
             }))
             .on("finish",done)
@@ -65,15 +65,24 @@ describe('gfes.browserify:resolvify', function() {
 //todo:querify
 describe.skip('gfes.browserify:querify', function() {
     //todo:resolve
-    it('queryloader', function(done) {
-        let b = gfes.browserify("./test/resource/js/module-require-json.js")
+    it('loader', function(done) {
+        done();
+    })
+})
+
+
+describe('gfes.browserify:processify', function() {
+    //todo:resolve
+
+    it('string', function(done) {
+        let b = gfes.browserify("./test/resource/js/module-querify-process.js")
         b.bundle("app.js")
-            .pipe(through.obj((f,env,next)=>{expect('abcdef').to.be.singleLine();
-                assert.include(f.contents.toString(),"require('./test/resource/js/module3.js')")
+            .pipe(through.obj((f,env,next)=>{
+                expect(f.contents.toString()).to
+                    .include("module.exports = \"0.0.1\"")
                 next(null,f)
             }))
             .on("finish",done)
-
-        done()
     })
+
 })

@@ -11,16 +11,19 @@ describe('gfes.dest', function() {
         this.slow(300);
 
         let ss = gfes.style("./test/resource/style/style.scss")
-        let jss = gfes.browserify("./test/resource/js/module-url.js").bundle("app.js")
-            //.on("data",function(f){console.log(f.contents.toString())})
+        let jss = gfes.browserify("./test/resource/js/module-dest.js").bundle("app.js")
 
         let s = mergeStream([jss])
 
-        s.on("data", f=>{})
-            .pipe(gfes.dest(null, {__debug:true}))
-            .on("finish", done)
-            .on("data", f=>{
+        s.on("data", f=> {
+            })
+            .on("data", f=> {
                 //console.log("\n/** final result **/\n",f.contents.toString(),"\n/** **/\n")
+            })
+            .pipe(gfes.dest(null, {__debug: true}))
+            .on("finish", done)
+            .on("data", f=> {
+                //console.log("\n/** final result **/\n", f.contents.toString(), "\n/** **/\n")
             })
     });
 })

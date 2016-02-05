@@ -1,12 +1,18 @@
 
 ## gfes.browserify(...)
 
-### 主要解决的问题
-- 更加灵活的模块加载功能
+```
+var b = gfes.browserify(...)
+```
 
-### feature expand
-- 文件读取前的重定向的功能
-- 声明依赖时传入参数的功能
+#### b.queryloader(...)
+```
+b.queryloader({
+    if:(file,id,query)=>... //match custom routes and return boolean;
+    ,loader:function(done,file,id,query)
+})
+```
+
 
 ## gfes.style(...)
 ### feature expand
