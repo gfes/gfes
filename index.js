@@ -5,4 +5,4 @@ exports.querify = {
 
 exports.style = require("./lib/tools/style");
 
-exports.dest = require("./lib/dest");
+exports.dest = require("./lib/dest").dest;
