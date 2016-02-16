@@ -7,9 +7,7 @@ var through = require("through2")
 var chai = require('chai');
 chai.use(require('chai-string'));
 
-var should = chai.should;
 var expect = chai.expect;
-var assert = chai.assert
 
 //todo:usual,
 //测试包装后browserify的日常使用是否正常
@@ -40,7 +38,7 @@ describe('gfes.browserify:resolvify', function() {
         })
         b.bundle("app.js")
             .pipe(through.obj((f,env,next)=>{
-                assert.include(f.contents.toString(),"module.exports = global.React")
+                expect(f.contents.toString()).to.include("module.exports = global.React")
                 next(null,f)
             }))
             .on("finish",done)
@@ -55,7 +53,7 @@ describe('gfes.browserify:resolvify', function() {
         })
         b.bundle("app.js")
             .pipe(through.obj((f,env,next)=>{
-                assert.include(f.contents.toString(),"require(\"./test/resource/js/module3.js\")")
+                expect(f.contents.toString()).to.include("require(\"./test/resource/js/module3.js\")")
                 next(null,f)
             }))
             .on("finish",done)
@@ -74,12 +72,23 @@ describe.skip('gfes.browserify:querify', function() {
 describe('gfes.browserify:processify', function() {
     //todo:resolve
 
-    it('string', function(done) {
+    it('inline', function(done) {
         let b = gfes.browserify("./test/resource/js/module-querify-process.js")
         b.bundle("app.js")
             .pipe(through.obj((f,env,next)=>{
                 expect(f.contents.toString()).to
                     .include("module.exports = \"0.0.1\"")
+                next(null,f)
+            }))
+            .on("finish",done)
+    })
+
+    it('require', function(done) {
+        let b = gfes.browserify("./test/resource/js/module-querify-process-require.js")
+        b.bundle("app.js")
+            .pipe(through.obj((f,env,next)=>{
+                expect(f.contents.toString()).to
+                    .include(process.cwd())
                 next(null,f)
             }))
             .on("finish",done)
