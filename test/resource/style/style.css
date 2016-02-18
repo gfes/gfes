@@ -1,0 +1,19 @@
+.test {
+  width: 100px;
+  height: 100px;
+  background: url("../assets/sub/b.png"); }
+
+.test2 {
+  width: 100px;
+  height: 100px;
+  background: url("../assets/a.png?base64"); }
+
+.test3 {
+  width: 100px;
+  height: 100px;
+  background: url("../assets/a.png"); }
+
+.test4 {
+  width: 100px;
+  height: 100px;
+  background: url("http://7o51mi.com1.z0.glb.clouddn.com/egret3dANI.PNG"); }

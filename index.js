@@ -1,8 +1,8 @@
-exports.browserify = require("./lib/tools/browserify");
-exports.querify = {
-    //loaders
+"use strict";
+
+var gfes = {
+    browserify:require("./lib/tools/browserify")
+    ,dest:require("./lib/dest").dest
 }
 
-exports.style = require("./lib/tools/style");
-
-exports.dest = require("./lib/dest").dest;
+module.exports = gfes;

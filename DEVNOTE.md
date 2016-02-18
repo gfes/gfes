@@ -13,6 +13,13 @@ b.queryloader({
 })
 ```
 
+#### internal loader
+```
+__url("xxx.png");
+__base64("xxx.png");
+__style("xxx.css");
+__styleObject("xxx.css");
+```
 
 ## gfes.style(...)
 ### feature expand

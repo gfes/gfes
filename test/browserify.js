@@ -1,97 +1,83 @@
-/* Created by tommyZZM on 2016/1/7. */
+/* Created by tommyZZM on 2016/2/18. */
 "use strict"
-var path = require("path")
-var gfes = require("../index.js");
-var through = require("through2")
+const cwd = process.cwd();
+const path = require("path");
+const through = require("through2")
+const browserify = require("../lib/tools/browserify")
 
-var chai = require('chai');
-chai.use(require('chai-string'));
+const expect = require("chai").expect
 
-var expect = chai.expect;
-
-//todo:usual,
-//测试包装后browserify的日常使用是否正常
-describe('gfes.browserify', function() {
+describe('browserify', function() {
     this.slow(100);
 
-    it('browserify single bundle', function(done) {
-        let b = gfes.browserify("./test/resource/js/module1.js")
+    it('base', function (done) {
+        let b = browserify("./test/resource/js/module1.js")
         b.bundle("app.js")
-            .pipe(through.obj((f,env,next)=>{
-                expect(path.basename(f.path)).to.equal("app.js")
-                next(null,f)
+            .pipe(through.obj((file, env, next)=> {
+                expect(path.basename(file.path)).to.equal("app.js")
+                next(null, file)
             }))
-            .on("finish",function(){
+            .on("finish", function () {
                 done()
             })
     });
-});
 
-//测试resolve参数
-describe('gfes.browserify:resolvify', function() {
-    //todo:resolve
-    it('resolve global', function(done) {
-        let b = gfes.browserify("./test/resource/js/module-require-react.js",{
-            resolve:{
-                react:"global:React"
-            }
-        })
-        b.bundle("app.js")
-            .pipe(through.obj((f,env,next)=>{
-                expect(f.contents.toString()).to.include("module.exports = global.React")
-                next(null,f)
-            }))
-            .on("finish",done)
-    });
-
-    //todo:resolve:redirect
-    it('resolve redirect', function(done) {
-        let b = gfes.browserify("./test/resource/js/module-redirect-module3.js",{
+    it('base:redirect', function (done) {
+        let b = browserify("./test/resource/js/module-redirect-module3.js",{
             resolve:{
                 module3:"./test/resource/js/module3.js"
             }
         })
         b.bundle("app.js")
-            .pipe(through.obj((f,env,next)=>{
-                expect(f.contents.toString()).to.include("require(\"./test/resource/js/module3.js\")")
-                next(null,f)
+            .pipe(through.obj((file, env, next)=> {
+                expect(file.contents.toString()).to.include("exports.name = \"module3\"")
+                next(null, file)
             }))
-            .on("finish",done)
+            .on("finish", function () {
+                done()
+            })
     });
-})
 
-//todo:querify
-describe.skip('gfes.browserify:querify', function() {
-    //todo:resolve
-    it('loader', function(done) {
-        done();
-    })
-})
-
-
-describe('gfes.browserify:processify', function() {
-    //todo:resolve
-
-    it('inline', function(done) {
-        let b = gfes.browserify("./test/resource/js/module-querify-process.js")
+    it('processify:inline', function (done) {
+        let b = browserify("./test/resource/js/module-processify-inline.js")
         b.bundle("app.js")
-            .pipe(through.obj((f,env,next)=>{
-                expect(f.contents.toString()).to
-                    .include("module.exports = \"0.0.1\"")
-                next(null,f)
+            .pipe(through.obj((file, env, next)=> {
+                expect(file.contents.toString()).to.include("module.exports = \"0.0.1\"")
+                next(null, file)
             }))
-            .on("finish",done)
-    })
+            .on("finish", function () {
+                done()
+            })
+    });
 
-    it('require', function(done) {
-        let b = gfes.browserify("./test/resource/js/module-querify-process-require.js")
+    it('processify:require', function (done) {
+        let b = browserify("./test/resource/js/module-processify-require.js")
         b.bundle("app.js")
-            .pipe(through.obj((f,env,next)=>{
-                expect(f.contents.toString()).to
-                    .include(process.cwd())
-                next(null,f)
+            .pipe(through.obj((file, env, next)=> {
+                expect(file.contents.toString()).to.include("module.exports = \""+cwd+"\"")
+                next(null, file)
             }))
-            .on("finish",done)
-    })
+            .on("finish", function () {
+                done()
+            })
+    });
 
+    it('processify:custom', function (done) {
+        let b = browserify("./test/resource/js/module-processify-custom.js")
+
+        b.processor(function(add){
+            add("resource").handle(function(file,resPath){
+                return path.relative(cwd,path.join(file,resPath))
+            })
+        })
+
+        b.bundle("app.js")
+            .pipe(through.obj((file, env, next)=> {
+                expect(file.contents.toString()).to.include("module.exports = \""+"test\\resource\\js\\assets\\a.png"+"\"")
+                next(null, file)
+            }))
+            .on("finish", function () {
+                done()
+            })
+    });
 })
