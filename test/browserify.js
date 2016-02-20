@@ -24,25 +24,6 @@ describe('browserify', function() {
             })
     });
 
-    it('watchify', function (done) {
-        let targetfile = "./test/resource/js/module1-change.js"
-        let b = watchify(browserify(targetfile))
-        let updateDate = new Date();
-        b.on("update",function(){
-            this.source("app.js")
-                .on("data",file=>expect(file.contents.toString()).to.include(updateDate))
-                .on("finish", done)
-        })
-        b.source("app.js")
-            .on("finish", function () {
-                let contents = fs.readFileSync(targetfile).toString();
-                contents = contents.replace(/(time:)\((.+)\)/gi, function (matched, title) {
-                    return title + "(" + updateDate + ")"
-                })
-                fs.writeFileSync(targetfile, new Buffer(contents))
-            })
-    });
-
     it('base:redirect', function (done) {
         let b = browserify("./test/resource/js/module-redirect-module3.js",{
             resolve:{
@@ -99,6 +80,51 @@ describe('browserify', function() {
             }))
             .on("finish", function () {
                 done()
+            })
+    });
+})
+
+describe("watchify",function(){
+    this.slow(180)
+    it('base', function (done) {
+        let targetfile = "./test/resource/js/module1-change.js"
+        let b = watchify(browserify(targetfile))
+        let updateDate = new Date();
+        b.on("update",function(){
+            this.source("app.js")
+                .on("data",file=>expect(file.contents.toString()).to.include(updateDate))
+                .on("finish", done)
+        })
+        b.source("app.js")
+            .on("finish", function () {
+                let contents = fs.readFileSync(targetfile).toString();
+                contents = contents.replace(/(time:)\((.+)\)/gi, function (matched, title) {
+                    return title + "(" + updateDate + ")"
+                })
+                fs.writeFileSync(targetfile, new Buffer(contents))
+            })
+    });
+
+    it('base:redirect', function (done) {
+        let targetfile = "./test/resource/js/module-redirect-module3-change.js"
+        let b = watchify(browserify(targetfile,{
+            resolve:{
+                module3:"./test/resource/js/module3.js"
+            }
+        }))
+        let updateDate = new Date();
+        b.on("update",function(){
+            this.source("app.js")
+                .on("data",file=>expect(file.contents.toString()).to.include(updateDate))
+                .on("finish", done)
+        })
+        b.source("app.js")
+            .on("finish", function () {
+                let contents = fs.readFileSync(targetfile).toString();
+                contents = contents.replace(/(time:)\((.+)\)/gi, function (matched, title) {
+                    return title + "(" + updateDate + ")"
+                })
+                fs.writeFileSync(targetfile, new Buffer(contents))
             })
     });
 })
