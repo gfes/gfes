@@ -4,8 +4,7 @@
   "description": "",
   "main": "./index.js",
   "scripts": {
-    "test": "./node_modules/.bin/_mocha",
-    "test-style": "./node_modules/.bin/_mocha"
+    "test": "./node_modules/.bin/_mocha"
   },
   "author": "",
   "license": "ISC",
@@ -13,7 +12,8 @@
     "chai": "^3.4.1",
     "chai-string": "^1.1.6",
     "mocha": "^2.3.4",
-    "mochawesome": "^1.2.2"
+    "mochawesome": "^1.2.2",
+    "watchify": "^3.7.0"
   },
   "dependencies": {
     "async-replace": "^1.0.1",

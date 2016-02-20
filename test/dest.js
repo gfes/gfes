@@ -16,7 +16,7 @@ describe('gfes.dest', function() {
     it('dest', function(done) {
         this.slow(300);
         let ss = style("./test/resource/style/style.scss")
-        let jss = browserify("./test/resource/js/module-dest.js").bundle("app.js")
+        let jss = browserify("./test/resource/js/module-dest.js").source("app.js")
         let s = mergeStream([ss,jss])
         s.pipe(gfes.dest("./test/resource/dist", {
                 assetsDest:"./assets"
