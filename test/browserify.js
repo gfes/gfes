@@ -40,6 +40,23 @@ describe('browserify', function() {
             })
     });
 
+    it('base:redirect:global', function (done) {
+        let b = browserify("./test/resource/js/module-redirect-react.js",{
+            resolve:{
+                react:"global.React"
+            }
+        })
+        b.source("app.js")
+            .pipe(through.obj((file, env, next)=> {
+                //console.log(file.contents.toString())
+                expect(file.contents.toString()).to.include("global.React")
+                next(null, file)
+            }))
+            .on("finish", function () {
+                done()
+            })
+    });
+
     it('processify:inline', function (done) {
         let b = browserify("./test/resource/js/module-processify-inline.js")
         b.source("app.js")
@@ -75,7 +92,8 @@ describe('browserify', function() {
 
         b.source("app.js")
             .pipe(through.obj((file, env, next)=> {
-                expect(file.contents.toString()).to.include("module.exports = \""+"test\\resource\\js\\assets\\a.png"+"\"")
+                //console.log(file.contents.toString())
+                expect(file.contents.toString()).to.include("module.exports = \""+"test\\\\resource\\\\js\\\\assets\\\\a.png"+"\"")
                 next(null, file)
             }))
             .on("finish", function () {
