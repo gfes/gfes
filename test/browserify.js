@@ -69,25 +69,37 @@ describe('browserify', function() {
             })
     });
 
-    it('processify:require', function (done) {
-        let b = browserify("./test/resource/js/module-processify-require.js")
-        b.source("app.js")
-            .pipe(through.obj((file, env, next)=> {
-                expect(file.contents.toString()).to.include("module.exports = \""+cwd+"\"")
-                next(null, file)
-            }))
-            .on("finish", function () {
-                done()
-            })
-    });
+    //it.skip('processify:require', function (done) {
+    //    let b = browserify("./test/resource/js/module-processify-require.js")
+    //    b.source("app.js")
+    //        .pipe(through.obj((file, env, next)=> {
+    //            expect(file.contents.toString()).to.include("module.exports = \""+cwd+"\"")
+    //            next(null, file)
+    //        }))
+    //        .on("finish", function () {
+    //            done()
+    //        })
+    //});
 
     it('processify:custom', function (done) {
         let b = browserify("./test/resource/js/module-processify-custom.js")
 
-        b.processor(function(add){
-            add("resource").handle(function(file,resPath){
-                return path.relative(cwd,path.join(file,resPath))
-            })
+        b.processor(function(file){
+            return function (imagepath){
+                if(path.extname(imagepath)!==".png"){
+                    return through.obj()
+                }
+                return path.relative(cwd,path.join(file,imagepath))
+            }
+        })
+        .processor(function(file){
+            return function (test){
+                if(test!=="abc"){
+                    return false
+                }
+                this.inline(true);
+                return {}
+            }
         })
 
         b.source("app.js")
