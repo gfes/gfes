@@ -84,23 +84,19 @@ describe('browserify', function() {
     it('processify:custom', function (done) {
         let b = browserify("./test/resource/js/module-processify-custom.js")
 
-        b.processor(function(file){
-            return function (imagepath){
-                if(path.extname(imagepath)!==".png"){
-                    return through.obj()
-                }
-                return path.relative(cwd,path.join(file,imagepath))
-            }
-        })
-        .processor(function(file){
-            return function (test){
-                if(test!=="abc"){
-                    return false
-                }
-                this.inline(true);
-                return {}
-            }
-        })
+        b.processor(function (accept, file) {
+                return accept((imagepath)=>path.extname(imagepath) === ".png")
+                    .then(imagepath=> {
+                        this.inline(false);
+                        return path.relative(cwd, path.join(file, imagepath))
+                    })
+            })
+            .processor(function (accept, file) {
+                return accept(test=>test === "abc")
+                    .then(_=> {
+                        return {}
+                    })
+            })
 
         b.source("app.js")
             .pipe(through.obj((file, env, next)=> {
