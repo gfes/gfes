@@ -108,6 +108,34 @@ describe('browserify', function() {
                 done()
             })
     });
+
+    it('processify:invaild', function (done) {
+        let b = browserify("./test/resource/js/module-processify-custom.js")
+
+        b.source("app.js")
+            .pipe(through.obj((file, env, next)=> {
+                //console.log(file.contents.toString())
+                //expect(file.contents.toString()).to.include("module.exports = \""+"test\\\\resource\\\\js\\\\assets\\\\a.png"+"\"")
+                next(null, file)
+            }))
+            .on("finish", function () {
+                done()
+            })
+    })
+
+    it.skip('processify:es7', function (done) {
+        let b = browserify("./test/resource/js/module-processify-es7.js")
+
+        b.source("app.js")
+            .pipe(through.obj((file, env, next)=> {
+                //console.log(file.contents.toString())
+                //expect(file.contents.toString()).to.include("module.exports = \""+"test\\\\resource\\\\js\\\\assets\\\\a.png"+"\"")
+                next(null, file)
+            }))
+            .on("finish", function () {
+                done()
+            })
+    })
 })
 
 describe("watchify",function(){
