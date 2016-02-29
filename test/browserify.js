@@ -59,27 +59,21 @@ describe('browserify', function() {
 
     it('processify:inline', function (done) {
         let b = browserify("./test/resource/js/module-processify-inline.js")
-        b.source("app.js")
+        b.processor(function (accept, file) {
+            return accept(test=>test === "abc")
+                .then(_=> {
+                    return {}
+                })
+        }).source("app.js")
             .pipe(through.obj((file, env, next)=> {
-                expect(file.contents.toString()).to.include("module.exports = \"0.0.1\"")
+                console.log(file.contents.toString())
+                expect(file.contents.toString()).to.include("version = \"0.0.1\"")
                 next(null, file)
             }))
             .on("finish", function () {
                 done()
             })
     });
-
-    //it.skip('processify:require', function (done) {
-    //    let b = browserify("./test/resource/js/module-processify-require.js")
-    //    b.source("app.js")
-    //        .pipe(through.obj((file, env, next)=> {
-    //            expect(file.contents.toString()).to.include("module.exports = \""+cwd+"\"")
-    //            next(null, file)
-    //        }))
-    //        .on("finish", function () {
-    //            done()
-    //        })
-    //});
 
     it('processify:custom', function (done) {
         let b = browserify("./test/resource/js/module-processify-custom.js")
@@ -173,6 +167,35 @@ describe("watchify",function(){
                 .on("finish", done)
         })
         b.source("app.js")
+            .on("finish", function () {
+                let contents = fs.readFileSync(targetfile).toString();
+                contents = contents.replace(/(time:)\((.+)\)/gi, function (matched, title) {
+                    return title + "(" + updateDate + ")"
+                })
+                fs.writeFileSync(targetfile, new Buffer(contents))
+            })
+    });
+
+    it('processify:inline', function (done) {
+        let targetfile = "./test/resource/js/module1-change.js"
+        let b = watchify(browserify("./test/resource/js/module-processify-inline.js"));
+
+        let updateDate = new Date();
+        b.on("update",function(){
+            this.source("app.js")
+                .on("data",file=>expect(file.contents.toString()).to.include(updateDate))
+                .on("finish", done)
+        })
+
+        b.transform("babelify", {
+            presets: ["es2015"]
+            , plugins: ["transform-decorators-legacy"]
+        }).source("app.js")
+            .pipe(through.obj((file, env, next)=> {
+                console.log(file.contents.toString())
+                expect(file.contents.toString()).to.include("version = \"0.0.1\"")
+                next(null, file)
+            }))
             .on("finish", function () {
                 let contents = fs.readFileSync(targetfile).toString();
                 contents = contents.replace(/(time:)\((.+)\)/gi, function (matched, title) {
